@@ -19,7 +19,7 @@
 
 let digits = ['0'-'9']+
 let puppy_id = ['_'  'a'-'z'  'A'-'Z']['_' 'a'-'z' 'A'-'Z' '0'-'9']*
-let puppy_string = ['<'](_* as str)['>']
+let puppy_string = ['<'](_* as str)['>'] 
 let witespace = [' ' '\t']+
 
 rule puppy = parse
@@ -68,12 +68,12 @@ rule puppy = parse
   | puppy_string              { STRING(str) }
   | '\n'                      { incr_linenum lexbuf; puppy lexbuf }
   | "/*"                      { puppy_comment 0 lexbuf }
+  | "//"_*                    { puppy lexbuf }
   | puppy_id as id            { ID(id) }
   | _ as c                    { printf "Unrecognized character: %c" c; puppy lexbuf }
   | eof                       { EOF }
 and puppy_comment depth = parse
   | '\n'                      { incr_linenum lexbuf; puppy_comment depth lexbuf }
-  | "//"_*                    { puppy lexbuf }
   | "/*"                      { puppy_comment (depth + 1) lexbuf }
   | "*/"                      { if depth = 0 then puppy lexbuf else puppy_comment (depth - 1) lexbuf }
   | _                         { puppy_comment depth lexbuf }
