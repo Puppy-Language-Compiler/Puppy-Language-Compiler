@@ -6,4 +6,27 @@
 {\author FANGZHENG HU}}\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 ocamlc -o semantrunner symbol.cmo types.cmo parser.cmo absyn.cmo errormsg.cmo env.cmo lexer.cmo translate.cmo semant.cmo semantrunner.cmo}
+\f0\fs24 \cf0 ocamlyacc -v parser.mly\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ocamllex lexer.mll\
+ocamlc -c errormsg.ml\
+ocamlc -c symbol.ml\
+ocamlc -c env.ml\
+ocamlc -c types.ml\
+ocamlc -c absyn.ml\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ocamlc -c lexer.ml\
+ocamlc -c parser.ml\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ocamlc -c parser.mli\
+ocamlc -c lexrunner.ml\
+ocamlc -c parserrunner.ml\
+ocamlc -c translate.ml\
+ocamlc -c semant.ml\
+\
+ocamlc -o lexrunner symbol.cmo types.cmo parser.cmo absyn.cmo errormsg.cmo env.cmo lexer.cmo lexrunner.ml\
+\
+ocamlc -o parserrunner symbol.cmo types.cmo parser.cmo absyn.cmo errormsg.cmo env.cmo lexer.cmo parserrunner.ml\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ocamlc -o semantrunner symbol.cmo types.cmo parser.cmo absyn.cmo errormsg.cmo env.cmo lexer.cmo translate.cmo semant.cmo semantrunner.ml}
